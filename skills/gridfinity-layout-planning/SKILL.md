@@ -1,6 +1,6 @@
 ---
 name: gridfinity-layout-planning
-description: Plan a Gridfinity layout: tile the baseplate for the user's printer (default Prusa CORE One), track printed tiles, then validate bin footprints (optional half units, heights in 7 mm units).
+description: Plan a Gridfinity layout: tile the baseplate for the user's printer (default Prusa CORE One), track printed tiles, validate bins (optional half units, heights) and list bins to print.
 ---
 
 # Gridfinity layout planning
@@ -11,7 +11,7 @@ Use this when the user wants to cover a surface (shelf, drawer, niche) with Grid
 - One cell = 42 mm. Show "1 cell = 42 mm" in each diagram.
 - Columns are numbered left to right, rows back to front (row 1 is against the back wall or mirror). A cell is written (column, row).
 - Tiles are named T1, T2, ... in the format TN. Label each tile with its name and size, e.g. "T4 3×5" (rows × columns, depth first).
-- Colours: unprinted tiles grey, printed tiles green. Obstructions (holders, pipes) are shown as a distinct blocked area with no cells.
+- Colours: unprinted tiles grey, printed tiles green. In the cell grid, unused cells are grey, unprinted bins blue and printed bins green. Obstructions (holders, pipes) are shown as a distinct blocked area with no cells.
 - Label the back edge (e.g. "Mirror / back wall") and the front edge. Draw diagrams inline as SVG.
 
 ## Printer (ask once, default available)
@@ -42,7 +42,12 @@ Bin height is counted in Gridfinity height units: 1u = 7 mm (confirm against the
 4. **Update on progress.** When the user reports printed tiles, redraw the layout with those tiles green. Say how many are done and which remain; suggest a print order where each new tile clips onto one already printed.
 5. **Final tile layout and cell grid.** When every tile is printed, redraw the tile layout one last time (all green). Then give the numbered cell grid: column and row numbers on the axes, unused cells grey, blocked cells marked, and a short note on the (column, row) convention and how many cells are usable. Mention in one line that half-unit sizes (.5) and bin heights in units (u) are optional extras. Give assembly steps (dry fit, glue dabs, cure time) only if the user wants them.
 6. **Collect bins.** The user returns each bin as its top-left and bottom-right cell, inclusive, as (column, row), optionally with a height in units.
-7. **Validate and draw.** Check that every bin is inside the usable area, avoids blocked cells and does not overlap another bin, and check heights against any headroom. Report any conflict before drawing. Then redraw the cell grid with used cells green and thick borders between bins, unused cells grey, and give each bin's footprint in mm (cells × 42) plus its height in mm when one was given.
+7. **Validate, draw and track bins.** Check that every bin is inside the usable area, avoids blocked cells and does not overlap another bin, and check heights against any headroom. Report any conflict before drawing. Then update the cell grid:
+   - Draw each newly given bin in blue to mark it as unprinted, with thick borders between bins. Bins the user has reported as printed are green; unused cells stay grey. Add a legend: grey = unused cell, blue = unprinted bin, green = printed bin.
+   - Label each bin with its height (and a name when it fits). A bin too small for a name gets a short ID (B1, H2) or only its height, and a legend line under the grid lists every bin with its coordinates and height. Keep thin grid lines out of bin interiors.
+   - Give each bin's footprint in mm (cells × 42) plus its height in mm when one was given, and state how many cells are now used and how many are unused.
+   - When the user reports bins as printed, redraw them green and say how many are still unprinted.
+   - When the user asks for the unprinted bins (for example "what is left to print"), reply with a table of every blue bin: bin name, cells (top-left to bottom-right), size in cells (width × depth), footprint in mm, and height in units and mm ("—" if no height was given). Put bins with the same size and height next to each other and give a quantity for each group so they can be printed in one batch. The table is the answer; draw the grid again only if the user asks.
 
 ## Practical notes
 - Use PETG (not PLA) for plates and bins that live near water or heat.
