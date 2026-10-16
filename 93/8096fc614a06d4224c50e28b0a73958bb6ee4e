@@ -1,0 +1,14 @@
+skills/gridfinity-layout-planning/SKILL.md
+  h_c0024dfa04e03b 3,14,45-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "938096fc614a06d4224c50e28b0a73958bb6ee4e",
+  "prompts": {},
+  "humans": {
+    "h_c0024dfa04e03b": {
+      "author": "Tony Skorik <just.skorik@gmail.com>"
+    }
+  }
+}
